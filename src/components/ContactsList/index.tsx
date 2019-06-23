@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, List } from 'semantic-ui-react';
+import { Image, Input, List } from 'semantic-ui-react';
 import { IContact } from '../../ducks/contacts';
 import './index.css';
 
@@ -22,15 +22,33 @@ const ContactListItem = (c: IContact) => {
   );
 };
 
-export interface IContactsListDataProps {
+interface IContactsListDataProps {
   contacts: IContact[];
+  searchFor: string;
 }
 
-const ContactsList: React.FC<IContactsListDataProps> = ({ contacts }) => {
+interface IContactsListCbProps {
+  onSearch: (searchFor: string) => void;
+}
+
+const ContactsList: React.FC<IContactsListDataProps & IContactsListCbProps> = ({
+  contacts,
+  searchFor,
+  onSearch,
+}) => {
   return (
-    <List selection={true} relaxed={true} divided={true} verticalAlign='middle'>
-      {contacts.map(ContactListItem)}
-    </List>
+    <div>
+      <Input
+        className='contacts-list__search'
+        icon='search'
+        placeholder='Search...'
+        value={searchFor}
+        onChange={(e) => onSearch(e.currentTarget.value)}
+      />
+      <List selection={true} relaxed={true} divided={true} verticalAlign='middle'>
+        {contacts.map(ContactListItem)}
+      </List>
+    </div>
   );
 };
 
