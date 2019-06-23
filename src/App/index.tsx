@@ -1,22 +1,13 @@
 import React from 'react';
+import { Container, Button, Label } from 'semantic-ui-react';
 import './index.css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App/index.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='counter-container'>
+      <Button primary>+</Button>
+      <Label>0</Label>
+      <Button secondary>-</Button>
     </div>
   );
 }
