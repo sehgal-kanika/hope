@@ -29,26 +29,29 @@ interface IContactsListDataProps {
 
 interface IContactsListCbProps {
   onSearch: (searchFor: string) => void;
+  onClickAdd: () => void;
 }
 
 const ContactsList: React.FC<IContactsListDataProps & IContactsListCbProps> = ({
   contacts,
   searchFor,
   onSearch,
+  onClickAdd,
 }) => {
   return (
-    <div>
-      <Input
-        className='contacts-list__search'
-        icon='search'
-        placeholder='Search...'
-        value={searchFor}
-        onChange={(e) => onSearch(e.currentTarget.value)}
-      />
-      <List selection={true} relaxed={true} divided={true} verticalAlign='middle'>
-        {contacts.map(ContactListItem)}
-      </List>
-    </div>
+    <List selection={true} relaxed={true} divided={true} verticalAlign='middle'>
+      <List.Item className='contacts-list__header'>
+        <Input
+          placeholder='Search...'
+          fluid={true}
+          value={searchFor}
+          onChange={(e) => onSearch(e.currentTarget.value)}
+          action={{ color: 'teal', icon: 'plus', onClick: onClickAdd }}
+        />
+      </List.Item>
+
+      {contacts.map(ContactListItem)}
+    </List>
   );
 };
 

@@ -1,11 +1,17 @@
-.counter-container {
+.container {
   display: flex;
   height: 100vh;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
 }
 
-.ui.label {
-  margin: 0 10px 0 7px;
+.contacts-list-sidebar {
+  flex-grow: 1;
+  border-right: 1px solid rgba(0,0,0,.2);
+}
+
+.contact-details {
+  flex-grow: 2;
+}
+
+.contact-timeline {
+  flex-grow: 3;
 }
