@@ -9,6 +9,8 @@ export interface IPhoneNumber {
 }
 
 export interface IContact {
+  id: string;
+  image?: string;
   firstName: string;
   lastName: string;
   birthday: Date;
@@ -21,6 +23,7 @@ const dummyContacts: IContact[] = [1, 2, 3, 4, 5].map(
     birthday: chance.birthday(),
     email: chance.email(),
     firstName: chance.first(),
+    id: chance.string(),
     lastName: chance.last(),
     phone: {
       countryCode: String(chance.integer({ min: 1, max: 999 })),
