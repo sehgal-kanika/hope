@@ -1,5 +1,9 @@
 * Humans Of Planet Earth
 
+#+BEGIN_QUOTE
+*WIP*: Using this as for teaching React/Redux at the moment.
+#+END_QUOTE
+
 HOPE is a Personal Relationship Manager for helping people connect. It is *NOT A
 SOCIAL NETWORK*. Well it is, but with a single user. It is meant to be used
 individually, your personal dashboard of life.
