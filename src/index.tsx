@@ -7,7 +7,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import reducer from './reducer';
 
-import App from './App';
+import App from './views/App';
 
 const store = configureStore({
   reducer,

@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
-import counter from './App/duck';
+import { IContact } from './ducks/contacts';
+import contacts from './ducks/contacts';
+
+export interface IState {
+  contacts: [IContact];
+}
 
 export default combineReducers({
-  counter: counter.reducer,
+  contacts: contacts.reducer,
 });

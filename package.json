@@ -37,6 +37,8 @@
     ]
   },
   "devDependencies": {
+    "@types/chance": "^1.0.4",
+    "chance": "^1.0.18",
     "prettier": "^1.18.2",
     "prettier-tslint": "^0.4.2",
     "tslint": "^5.18.0",
