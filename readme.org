@@ -1,0 +1,107 @@
+* Humans Of Planet Earth
+
+HOPE is a Personal Relationship Manager for helping people connect. It is *NOT A
+SOCIAL NETWORK*. Well it is, but with a single user. It is meant to be used
+individually, your personal dashboard of life.
+
+** MVP
+
+In its most minimal form, HOPE is a contacts manager with which you can:
+
+- Manage your contacts
+- Log basic activities you did with your contacts
+  - Calls
+  - Meetings
+  - Outings
+- Set reminders to get in touch with your contacts in future
+
+** Stories
+
+*** As a USER I want to VIEW LIST of my CONTACTS
+
+#+begin_src feature
+  Scenario 1
+  Given that I am any user
+  When I open "Home Page"
+  Then I should see a list of all my contacts sorted alphabetically by name
+#+end_src
+
+*** As a USER I want to FILTER my CONTACTS
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Home Page"
+  When I type anything in the search box of contact listing
+  Then I should see my contact list to only contacts with matching name, email, organization or phone
+#+end_src
+
+*** As a USER I want an ADD CONTACT FORM
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Home Page"
+  When I click on "Add Contact" button
+  Then I should see a form for creating new contact
+#+end_src
+
+*** As a USER I want to ADD a new CONTACT
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Add Contact" form
+  When I enter any value in any field
+  Then contact should get created
+  And I should receive some feedback about its success or failure
+#+end_src
+
+*** As a USER I want to VIEW DETAILS of a CONTACT
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Home Page"
+  And "Contacts List" is visible
+  When I click on any contact in the "Contacts List"
+  Then I should see "Contact Details View" populated with details of selected contact
+#+end_src
+
+*** As a USER I want to VIEW ACTIVITY TIMELINE of a CONTACT
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Contact List"
+  When I click on any contact in the "Contacts List"
+  Then I should see "Timeline" of activities with a contact in the "Contact Details View"
+  And I should see a textbox titled "Log Activity" at the top of timeline
+#+end_src
+
+*** As a USER I want to LOG ACTIVITY with a CONTACT
+
+#+begin_src feature
+  Scenario 1
+  Given that I am on "Contact Details View"
+  When I enter any text in the "Log Activity" textbox and press Enter
+  Then I should see a the new entry added in the "Activity Timeline"
+#+end_src
+
+*** As a USER I want to EDIT logged ACTIVITY with a CONTACT
+
+#+begin_src feature
+  Scenario View edit button
+  Given that I am on "Contact Details View"
+  When I hover over any "Activity Timeline" item
+  Then I should see an "Edit" icon
+#+end_src
+
+#+begin_src feature
+  Scenario Edit timeline activity
+  Given that I am on "Contact Details View"
+  When I click on "Edit" icon of "Activity Timeline" item
+  Then I should see the "Activity Timeline" item replaced with a pre-pulated textarea
+#+end_src
+
+#+begin_src feature
+  Scenario Save editted timeline activity
+  Given that I am on "Contact Details View"
+  When I press "Enter" in "Activity Timeline" item being editted
+  Then I should see the "Activity Timeline" item replaced back to its non-editting form while keeping all the changes I made
+#+end_src
