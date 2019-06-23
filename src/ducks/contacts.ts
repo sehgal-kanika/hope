@@ -1,5 +1,6 @@
 import Chance from 'chance';
 import { createSlice } from 'redux-starter-kit';
+import appSlice from '../views/App/duck';
 
 const chance = Chance();
 
@@ -33,6 +34,24 @@ const dummyContacts: IContact[] = [1, 2, 3, 4, 5].map(
 );
 
 export default createSlice({
+  extraReducers: {
+    [appSlice.actions.searchContacts.toString()]: (contacts, { payload: searchFor = '' }) => {
+      return dummyContacts.filter((contact) => {
+        const searchTerm = searchFor.toLowerCase();
+        return (
+          contact.firstName.toLowerCase().indexOf(searchTerm) > -1 ||
+          contact.lastName.toLowerCase().indexOf(searchTerm) > -1 ||
+          contact.phone.countryCode.indexOf(searchTerm) > -1 ||
+          contact.phone.number.indexOf(searchTerm) > -1 ||
+          contact.email.toLowerCase().indexOf(searchTerm) > -1 ||
+          contact.birthday
+            .toString()
+            .toLowerCase()
+            .indexOf(searchTerm) > -1
+        );
+      });
+    },
+  },
   initialState: dummyContacts,
   reducers: {},
 });

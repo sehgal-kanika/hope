@@ -15,5 +15,5 @@ export default createSlice({
       state.contactsSearchFor = action.payload;
     },
   },
-  slice: 'App',
+  slice: 'app',
 });
