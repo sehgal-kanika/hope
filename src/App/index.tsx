@@ -1,15 +1,39 @@
 import React from 'react';
-import { Container, Button, Label } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { Button, Label } from 'semantic-ui-react';
+import { IState } from '../types';
+import slice from './duck';
 import './index.css';
 
-const App: React.FC = () => {
-  return (
-    <div className='counter-container'>
-      <Button primary>+</Button>
-      <Label>0</Label>
-      <Button secondary>-</Button>
-    </div>
-  );
+interface IAppDataProps {
+  count: number;
+}
+interface IAppCbProps {
+  onIncrement: () => void;
+  onDecrement: () => void;
 }
 
-export default App;
+const App: React.FC<IAppDataProps & IAppCbProps> = ({ count, onIncrement, onDecrement }) => {
+  return (
+    <div className='counter-container'>
+      <Button primary={true} onClick={onIncrement}>+</Button>
+      <Label>{count}</Label>
+      <Button secondary={true} onClick={onDecrement}>-</Button>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: IState): IAppDataProps => ({
+  count: state.counter,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): IAppCbProps => ({
+  onDecrement: () => dispatch(slice.actions.decrement()),
+  onIncrement: () => dispatch(slice.actions.increment()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
