@@ -1252,6 +1252,13 @@
   resolved "https://registry.yarnpkg.com/@types/chance/-/chance-1.0.4.tgz#d262b7f04cf49b0d298fb162dd5db72a810c739d"
   integrity sha512-Fwkv18sHVKsJBVEB6u7uDu5gDKbEYWz3ZB2vV3XfoD/C9eYABRZuHVx+4cuuYE2Th7IGMpaRpyJxDnTSeNleag==
 
+"@types/fecha@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/fecha/-/fecha-2.3.1.tgz#2ee937c0a2b760e165835d62385bb382226fc901"
+  integrity sha512-2PKrYmgQlrgJtQekwXQMkp1nMqDYnEVFxdFTiU5LzpWS87XYufw29TSOqaQ5GXP9R+4U5e0CdiSL8+DCDkyZNQ==
+  dependencies:
+    fecha "*"
+
 "@types/history@*", "@types/history@^4.7.2":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -4076,6 +4083,11 @@ fbjs@^0.8.0:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
+
+fecha@*, fecha@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fecha/-/fecha-3.0.3.tgz#fabbd416497649a42c24d34bfa726b579203a1e2"
+  integrity sha512-6LQK/1jud/FZnfEEZJ7y81vw7ge81DNd/XEsX0hgMUjhS+QMljkb1C0czBaP7dMNRVrd5mw/J2J7qI2Nw+TWZw==
 
 figgy-pudding@^3.5.1:
   version "3.5.1"

@@ -1,3 +1,4 @@
+import fecha from 'fecha';
 import { Field, FieldProps, Formik, FormikActions, FormikProps, getIn } from 'formik';
 import React from 'react';
 import { Button, Form, Input } from 'semantic-ui-react';
@@ -41,16 +42,37 @@ const emptyContact: INewContactFormValues = {
 
 interface ISemanticFieldProps {
   label: string;
+  type?: string;
   fluid?: boolean;
 }
 
 const SemanticField = (props: FieldProps & ISemanticFieldProps) => {
   const error =
     getIn(props.form.touched, props.field.name) && getIn(props.form.errors, props.field.name);
+
+  let value = props.field.value;
+  let onChange = props.field.onChange;
+
+  if (props.type === 'date') {
+    value = fecha.format(new Date(props.field.value), 'YYYY-MM-DD');
+    onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let newDate = new Date();
+
+      try {
+        newDate = fecha.parse(e.currentTarget.value, 'YYYY-MM-DD') || new Date();
+      } catch (e) { }
+
+      const newEvent = e;
+      newEvent.currentTarget.value = newDate.toString();
+
+      return props.field.onChange(newEvent);
+    };
+  }
+
   return (
     <Form.Field error={Boolean(error)}>
       <label>{props.label}</label>
-      <Input {...props.field} fluid={props.fluid} />
+      <Input {...props.field} value={value} onChange={onChange} fluid={props.fluid} />
       {error && <span className='error'>{error}</span>}
     </Form.Field>
   );
