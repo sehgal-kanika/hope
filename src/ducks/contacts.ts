@@ -1,4 +1,5 @@
 import Chance from 'chance';
+import fecha from 'fecha';
 import { createAction, createSlice } from 'redux-starter-kit';
 import { INewContactFormValues } from '../components/NewContact';
 import appSlice from '../views/App/duck';
@@ -38,7 +39,7 @@ const saveContact = createAction('saveContact');
 
 export default createSlice({
   extraReducers: {
-    [appSlice.actions.searchContacts.toString()]: (contacts, { payload: searchFor = '' }) => {
+    [appSlice.actions.searchContacts.toString()]: (_, { payload: searchFor = '' }) => {
       return dummyContacts.filter((contact) => {
         const searchTerm = searchFor.toLowerCase();
         return (
@@ -62,6 +63,7 @@ export default createSlice({
       contacts.push({
         id: newId,
         ...payload,
+        birthday: fecha.parse(payload.birthday, 'YYYY-MM-DD') || new Date(),
       });
     },
   },

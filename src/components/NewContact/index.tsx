@@ -10,13 +10,13 @@ export interface INewContactFormValues {
   image?: string;
   firstName: string;
   lastName: string;
-  birthday: Date;
+  birthday: string;
   phone: IPhoneNumber;
   email: string;
 }
 
 const ContactSchema = yup.object().shape({
-  birthday: yup.date().required('Required'),
+  birthday: yup.string().required('Required'),
   firstName: yup.string().required('Required'),
   lastName: yup.string().required('Required'),
   phone: yup.object().shape({
@@ -30,7 +30,7 @@ const ContactSchema = yup.object().shape({
 });
 
 const emptyContact: INewContactFormValues = {
-  birthday: new Date(),
+  birthday: fecha.format(new Date(), 'YYYY-MM-DD'),
   email: '',
   firstName: '',
   lastName: '',
@@ -50,32 +50,21 @@ const SemanticField = (props: FieldProps & ISemanticFieldProps) => {
   const error =
     getIn(props.form.touched, props.field.name) && getIn(props.form.errors, props.field.name);
 
-  let value = props.field.value;
-  let onChange = props.field.onChange;
-
-  if (props.type === 'date') {
-    value = fecha.format(new Date(props.field.value), 'YYYY-MM-DD');
-    onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let newDate = new Date();
-
-      try {
-        newDate = fecha.parse(e.currentTarget.value, 'YYYY-MM-DD') || new Date();
-      } catch (e) { }
-
-      const newEvent = e;
-      newEvent.currentTarget.value = newDate.toString();
-
-      return props.field.onChange(newEvent);
-    };
-  }
-
   return (
     <Form.Field error={Boolean(error)}>
       <label>{props.label}</label>
-      <Input {...props.field} value={value} onChange={onChange} fluid={props.fluid} />
+      <Input {...props.field} fluid={props.fluid} />
       {error && <span className='error'>{error}</span>}
     </Form.Field>
   );
+};
+
+const validateDate = (value: string) => {
+  const regEx = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+
+  if (!regEx.test(value)) {
+    return 'Must be a valid date in format: "YYYY-MM-DD"';
+  }
 };
 
 const InnerForm: React.FC<FormikProps<INewContactFormValues>> = (props) => (
@@ -84,7 +73,7 @@ const InnerForm: React.FC<FormikProps<INewContactFormValues>> = (props) => (
     <Field component={SemanticField} name='lastName' label='Last Name' />
     <Field component={SemanticField} name='email' label='Email' type='email' />
     <Field component={SemanticField} name='phone.number' label='Phone' />
-    <Field component={SemanticField} name='birthday' label='Birthday' type='date' />
+    <Field component={SemanticField} name='birthday' label='Birthday' validate={validateDate} />
 
     <Button primary={true} type='submit'>
       Save
