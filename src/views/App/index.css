@@ -4,12 +4,14 @@
 }
 
 .contacts-list-sidebar {
-  flex-grow: 1;
+  flex-grow: 0.5;
   border-right: 1px solid rgba(0,0,0,.2);
 }
 
 .contact-details {
-  flex-grow: 2;
+  flex-grow: 1;
+  border-right: 1px solid rgba(0,0,0,.2);
+  padding: 1em;
 }
 
 .contact-timeline {

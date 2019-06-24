@@ -1,5 +1,6 @@
 import Chance from 'chance';
-import { createSlice } from 'redux-starter-kit';
+import { createAction, createSlice } from 'redux-starter-kit';
+import { INewContactFormValues } from '../components/NewContact';
 import appSlice from '../views/App/duck';
 
 const chance = Chance();
@@ -33,6 +34,8 @@ const dummyContacts: IContact[] = [1, 2, 3, 4, 5].map(
   }),
 );
 
+const saveContact = createAction('saveContact');
+
 export default createSlice({
   extraReducers: {
     [appSlice.actions.searchContacts.toString()]: (contacts, { payload: searchFor = '' }) => {
@@ -53,5 +56,13 @@ export default createSlice({
     },
   },
   initialState: dummyContacts,
-  reducers: {},
+  reducers: {
+    [saveContact.type]: (contacts, { payload }: { payload: INewContactFormValues }) => {
+      const newId = String(new Date().getTime());
+      contacts.push({
+        id: newId,
+        ...payload,
+      });
+    },
+  },
 });

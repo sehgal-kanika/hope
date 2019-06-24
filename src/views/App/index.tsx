@@ -1,11 +1,12 @@
 import { push } from 'connected-react-router';
+import { FormikActions } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
 import { Dispatch } from 'redux';
 import ContactsList from '../../components/ContactsList';
-import NewContact from '../../components/NewContact';
-import { IContact } from '../../ducks/contacts';
+import NewContact, { INewContactFormValues } from '../../components/NewContact';
+import contactsSlice, { IContact } from '../../ducks/contacts';
 import { IState } from '../../reducer';
 import slice from './duck';
 import './index.css';
@@ -18,6 +19,10 @@ interface IAppDataProps {
 interface IAppCbProps {
   onSearchContacts: (searchFor: string) => void;
   onGotoAddContact: () => void;
+  onSaveContact: (
+    data: INewContactFormValues,
+    formActions: FormikActions<INewContactFormValues>,
+  ) => void;
 }
 
 const App: React.FC<IAppDataProps & IAppCbProps> = ({
@@ -25,6 +30,7 @@ const App: React.FC<IAppDataProps & IAppCbProps> = ({
   contactsSearchFor,
   onSearchContacts,
   onGotoAddContact,
+  onSaveContact,
 }) => {
   return (
     <div className='container'>
@@ -37,7 +43,7 @@ const App: React.FC<IAppDataProps & IAppCbProps> = ({
         />
       </div>
       <div className='contact-details'>
-        <Route exact={true} path='/add' component={NewContact} />
+        <Route exact={true} path='/add' render={() => <NewContact onSave={onSaveContact} />} />
       </div>
       <div className='contact-timeline' />
     </div>
@@ -52,6 +58,10 @@ const mapState = (state: IState): IAppDataProps => ({
 const mapDispatch = (dispatch: Dispatch): IAppCbProps => ({
   onGotoAddContact: () => dispatch(push('/add')),
   onSearchContacts: (searchFor) => dispatch(slice.actions.searchContacts(searchFor)),
+  onSaveContact: (data, formActions) => {
+    formActions.resetForm();
+    return dispatch(contactsSlice.actions.saveContact(data));
+  },
 });
 
 export default connect(
